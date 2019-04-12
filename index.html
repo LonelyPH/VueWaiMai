@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+    content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+  <title>vue_waimai</title>
+  <!-- 引入百度地图API -->
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=OeCXHNigmr3XM5PAFd6WPFmOw0Y7x9zT"></script>
+  <!-- reset引入 -->
+  <link rel="stylesheet" href="./static/CSS/reset.css">
+  <!-- 图标引入 -->
+  <link rel="stylesheet" href="http://at.alicdn.com/t/font_1120208_7oxnb1xyzrh.css">
+  <!-- 去除点击响应的300ms延迟 -->
+  <script src="https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js"></script>
+  <script>
+    if ('addEventListener' in document) {
+      document.addEventListener('DOMContentLoaded', function () {
+        FastClick.attach(document.body);
+      }, false);
+    }
+    if (!window.Promise) {
+      document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"' +
+        '>' + '<' + '/' + 'script>');
+    }
+
+  </script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+
+</html>
