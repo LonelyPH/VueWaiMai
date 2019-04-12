@@ -16,12 +16,12 @@
             <i class="iconfont icon-person"></i>
           </div>
           <div class="user-info">
-            <p class="user-info-top">登录/注册</p>
+            <p class="user-info-top" v-text="userMsg.name || '登录/注册'" v-if="!userMsg.phone"></p>
             <p>
               <span class="user-icon">
                 <i class="iconfont icon-shouji icon-mobile"></i>
               </span>
-              <span class="icon-mobile-number">暂无绑定手机号</span>
+              <span class="icon-mobile-number" v-text="userMsg.phone || '暂无绑定手机号'"></span>
             </p>
           </div>
           <span class="arrow">
@@ -125,13 +125,19 @@
 </template>
 
 <script>
+//*引入mapState
+import { mapState } from "vuex";
+
 //* 引入公共组件HeaderTop
 import HeaderTop from "../../components/HeaderTop/HeaderTop";
 
 export default {
-  methods: {},
   components: {
     HeaderTop
+  },
+  computed: {
+    //用户信息
+    ...mapState(["userMsg"])
   }
 };
 </script>

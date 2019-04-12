@@ -75,8 +75,6 @@ import HeaderTop from "../../components/HeaderTop/HeaderTop";
 //*引入子组件
 import ShopList from "../../components/ShopList/ShopList";
 
-//*引入定位函数
-// import { geoFindMe } from "../../common/Tool/tool.js";
 export default {
   data() {
     return {

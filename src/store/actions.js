@@ -5,7 +5,8 @@
 import {
   RECEIVE_FOOD_LIST,
   RECEIVE_ADDRESS,
-  RECEIVE_SHOP_LIST
+  RECEIVE_SHOP_LIST,
+  RECEIVE_USER_MSG
 } from "./mutation-types";
 
 import { getFoodList, geoFindMe, getShopList } from "../api/index";
@@ -42,8 +43,12 @@ export default {
     const longitude = state.longitude;
     const result = await getShopList({ latitude, longitude });
     if (result.code === 0) {
-      const shopList = result.data
+      const shopList = result.data;
       commit(RECEIVE_SHOP_LIST, { shopList });
     }
+  },
+  //*获取用户信息
+  getUserMsg({ commit }, userMsg) {
+    commit(RECEIVE_USER_MSG, { userMsg });
   }
 };

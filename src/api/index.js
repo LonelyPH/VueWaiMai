@@ -53,7 +53,7 @@ export const searchShopList = ({ geohash, keyword }) =>
   ajax(BASE_URL + "/search_shops", { geohash, keyword });
 
 //*获取一次性验证码
-export const getYanZhengMa = () => ajax(BASE_URL + "/captcha");
+// export const getYanZhengMa = () => ajax(BASE_URL + "/captcha");
 
 //*用户名密码登陆
 export const passwordLogin = ({ name, pwd, captcha }) =>
