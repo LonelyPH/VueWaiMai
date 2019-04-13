@@ -9,11 +9,14 @@
 <script>
 import FooterGuide from "./components/FooterGuide/FooterGuide";
 import { getFoodList } from "./api";
+import { mapActions } from "vuex";
 export default {
-  // async mounted() {
-  //   let result = await getFoodList()
-  //   console.log(result)
-  // },
+  mounted() {
+    this.autoLogin();
+  },
+  methods: {
+    ...mapActions(["autoLogin"])
+  },
   components: {
     FooterGuide
   }

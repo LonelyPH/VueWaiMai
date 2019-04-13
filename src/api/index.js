@@ -68,7 +68,7 @@ export const duanXinLogin = ({ phone, code }) =>
   ajax(BASE_URL + "/login_sms", { phone, code }, "POST");
 
 //*根据会话获取用户信息
-export const getUserMsg = () => ajax(BASE_URL + "/userinfo");
+export const autoGetUserMsg = () => ajax(BASE_URL + "/userinfo");
 
 //*用户登出
 export const quitLogin = () => ajax(BASE_URL + "/logout");

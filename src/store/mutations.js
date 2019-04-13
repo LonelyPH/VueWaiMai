@@ -5,7 +5,8 @@ import {
   RECEIVE_FOOD_LIST,
   RECEIVE_SHOP_LIST,
   RECEIVE_ADDRESS,
-  RECEIVE_USER_MSG
+  RECEIVE_USER_MSG,
+  LOGIN_OUT
 } from "./mutation-types";
 
 export default {
@@ -26,5 +27,9 @@ export default {
   //*记录用户信息
   [RECEIVE_USER_MSG](state, { userMsg }) {
     state.userMsg = userMsg;
+  },
+  //*用户登出
+  [LOGIN_OUT](state) {
+    state.userMsg = {};
   }
 };

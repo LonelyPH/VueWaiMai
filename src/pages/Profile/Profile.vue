@@ -11,7 +11,7 @@
       <HeaderTop title="我的"/>
 
       <section class="profile-number">
-        <router-link to="/login" class="profile-link">
+        <router-link :to="userMsg._id ? '/userMsg' : '/login'" class="profile-link">
           <div class="profile_image">
             <i class="iconfont icon-person"></i>
           </div>
@@ -28,23 +28,6 @@
             <i class="iconfont icon-jiantou1"></i>
           </span>
         </router-link>
-        <!-- <a href="javascript:" class="profile-link">
-          <div class="profile_image">
-            <i class="iconfont icon-person"></i>
-          </div>
-          <div class="user-info">
-            <p class="user-info-top">登录/注册</p>
-            <p>
-              <span class="user-icon">
-                <i class="iconfont icon-shouji icon-mobile"></i>
-              </span>
-              <span class="icon-mobile-number">暂无绑定手机号</span>
-            </p>
-          </div>
-          <span class="arrow">
-            <i class="iconfont icon-jiantou1"></i>
-          </span>
-        </a>-->
       </section>
       <section class="profile_info_data border-1px">
         <ul class="info_data_list">
@@ -120,6 +103,9 @@
           </div>
         </a>
       </section>
+      <section class="profile_my_order border-1px" v-if="userMsg._id">
+        <mt-button class="logout" type="danger" @click="logOut">退出登录</mt-button>
+      </section>
     </section>
   </div>
 </template>
@@ -131,6 +117,8 @@ import { mapState } from "vuex";
 //* 引入公共组件HeaderTop
 import HeaderTop from "../../components/HeaderTop/HeaderTop";
 
+import { MessageBox, Toast } from "mint-ui";
+
 export default {
   components: {
     HeaderTop
@@ -138,6 +126,20 @@ export default {
   computed: {
     //用户信息
     ...mapState(["userMsg"])
+  },
+  methods: {
+    //*用户登出
+    logOut() {
+      MessageBox.confirm("是否退出当前账号？").then(
+        action => {
+          this.$store.dispatch("loginOut");
+          Toast("退出成功！");
+        },
+        action => {
+          Toast("退出取消！");
+        }
+      );
+    }
   }
 };
 </script>
@@ -344,6 +346,10 @@ export default {
           }
         }
       }
+    }
+
+    .logout {
+      width: 100%;
     }
   }
 }

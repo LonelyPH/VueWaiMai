@@ -5,7 +5,7 @@
         <h2 class="login_logo">Vue外卖</h2>
         <div class="login_header_title">
           <a href="javascript:;" :class="{on: loginWay}" @click="loginWay = true">短信登录</a>
-          <a href="javascript:;" :class="{on: !loginWay}" @click="loginWay = false">密码登录</a>
+          <a href="javascript:;" :class="{on: !loginWay}" @click="updataCaptcha">密码登录</a>
         </div>
       </div>
       <div class="login_content">
@@ -111,6 +111,11 @@ export default {
     }
   },
   methods: {
+    //*每次切换密码登录时更新一次验证码
+    updataCaptcha() {
+      this.loginWay = false;
+      this.changeCaptcha();
+    },
     //*异步获取短信验证码
     async sendCode() {
       //*显示倒计时

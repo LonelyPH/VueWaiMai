@@ -3,13 +3,21 @@
   <section class="msite">
     <!-- //*公共header组件 -->
     <HeaderTop :title="address">
-      <span class="header_search" slot="header-search-left">
+      <router-link to="/search" class="header_search" slot="header-search-left">
         <i class="iconfont icon-sousuo"></i>
-      </span>
+      </router-link>
 
       <span class="header_login" slot="header-login-right">
-        <router-link to="/login" class="header_login_text">登录|注册</router-link>
-        <!-- <span class="header_login_text">登录|注册</span> -->
+        <!-- 未登录时的显示状态 -->
+        <router-link
+          :to="userMsg._id ? '/userMsg' : '/login'"
+          class="header_login_text"
+          v-if="!userMsg._id"
+        >登录|注册</router-link>
+        <!-- 已登录的显示状态 -->
+        <router-link to="'/userMsg'" class="header_login_text" v-else>
+          <i class="iconfont icon-person"></i>
+        </router-link>
       </span>
     </HeaderTop>
     <!--//*首页导航-->
@@ -48,7 +56,9 @@
         <div class="swiper-pagination"></div>
       </div>
       <!-- 资源加载中的过渡 -->
-      <div v-else><img src="./images/msite_back.svg" alt="back"></div>
+      <div v-else>
+        <img src="./images/msite_back.svg" alt="back">
+      </div>
     </nav>
     <div class="msite_shop_list">
       <div class="shop_header">
@@ -91,10 +101,10 @@ export default {
     ShopList
   },
   computed: {
-    ...mapState(['foodList' , 'address'])
+    ...mapState(["foodList", "address", "userMsg"])
   },
   methods: {
-    ...mapActions(['receiveFoodList', 'receiveAddress'])
+    ...mapActions(["receiveFoodList", "receiveAddress"])
   },
   watch: {
     //*监视foodList数据的改变，

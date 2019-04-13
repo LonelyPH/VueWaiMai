@@ -6,10 +6,17 @@ import {
   RECEIVE_FOOD_LIST,
   RECEIVE_ADDRESS,
   RECEIVE_SHOP_LIST,
-  RECEIVE_USER_MSG
+  RECEIVE_USER_MSG,
+  LOGIN_OUT
 } from "./mutation-types";
 
-import { getFoodList, geoFindMe, getShopList } from "../api/index";
+import {
+  getFoodList,
+  geoFindMe,
+  getShopList,
+  autoGetUserMsg,
+  quitLogin
+} from "../api/index";
 export default {
   //*获取食品列表
   async receiveFoodList({ commit }) {
@@ -50,5 +57,20 @@ export default {
   //*获取用户信息
   getUserMsg({ commit }, userMsg) {
     commit(RECEIVE_USER_MSG, { userMsg });
+  },
+  //*自动登录(自动获取缓存中的用户信息并登录)
+  async autoLogin({ commit }) {
+    const result = await autoGetUserMsg();
+    if (result.code === 0) {
+      const userMsg = result.data;
+      commit(RECEIVE_USER_MSG, { userMsg });
+    }
+  },
+  //*异步登出
+  async loginOut({ commit }) {
+    const result = await quitLogin();
+    if (result.code === 0) {
+      commit(LOGIN_OUT);
+    }
   }
 };
