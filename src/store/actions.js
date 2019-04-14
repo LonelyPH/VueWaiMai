@@ -7,7 +7,10 @@ import {
   RECEIVE_ADDRESS,
   RECEIVE_SHOP_LIST,
   RECEIVE_USER_MSG,
-  LOGIN_OUT
+  LOGIN_OUT,
+  RECEIVE_SHOP_GOODS,
+  RECEIVE_SHOP_PINGJIA,
+  RECEIVE_SHOP_MSG
 } from "./mutation-types";
 
 import {
@@ -15,7 +18,10 @@ import {
   geoFindMe,
   getShopList,
   autoGetUserMsg,
-  quitLogin
+  quitLogin,
+  getShopMsg,
+  getShopPingJia,
+  getShopGoods
 } from "../api/index";
 export default {
   //*获取食品列表
@@ -71,6 +77,30 @@ export default {
     const result = await quitLogin();
     if (result.code === 0) {
       commit(LOGIN_OUT);
+    }
+  },
+  //*异步获取商家商品
+  async getGoods({ commit }) {
+    const result = await getShopGoods();
+    if (result.code === 0) {
+      const shopGoods = result.data;
+      commit(RECEIVE_SHOP_GOODS, { shopGoods });
+    }
+  },
+  //*异步获取商家评价
+  async getPingJia({ commit }) {
+    const result = await getShopPingJia();
+    if (result.code === 0) {
+      const shopPingJia = result.data;
+      commit(RECEIVE_SHOP_PINGJIA, { shopPingJia });
+    }
+  },
+  //*异步获取商家信息
+  async getMsg({ commit }) {
+    const result = await getShopMsg();
+    if (result.code === 0) {
+      const shopMsg = result.data;
+      commit(RECEIVE_SHOP_MSG, { shopMsg });
     }
   }
 };

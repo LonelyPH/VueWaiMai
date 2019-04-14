@@ -6,7 +6,10 @@ import {
   RECEIVE_SHOP_LIST,
   RECEIVE_ADDRESS,
   RECEIVE_USER_MSG,
-  LOGIN_OUT
+  LOGIN_OUT,
+  RECEIVE_SHOP_GOODS,
+  RECEIVE_SHOP_PINGJIA,
+  RECEIVE_SHOP_MSG
 } from "./mutation-types";
 
 export default {
@@ -31,5 +34,19 @@ export default {
   //*用户登出
   [LOGIN_OUT](state) {
     state.userMsg = {};
+  },
+  //*获取mock数据
+
+  //商家商品
+  [RECEIVE_SHOP_GOODS](state, { shopGoods }) {
+    state.shopGoods = shopGoods;
+  },
+  //商家评价
+  [RECEIVE_SHOP_PINGJIA](state, { shopPingJia }) {
+    state.shopPingJia = shopPingJia;
+  },
+  //商家信息
+  [RECEIVE_SHOP_MSG](state, { shopMsg }) {
+    state.shopMsg = shopMsg;
   }
 };

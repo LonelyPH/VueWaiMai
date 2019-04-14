@@ -1,110 +1,139 @@
 <template>
   <div class="shop-header">
-    <nav class="shop-nav">
-      <a class="back">
+    <nav class="shop-nav" :style="{backgroundImage: `url(${shopMsg.bgImg})`}">
+      <a class="back" @click="$router.back()">
         <i class="iconfont icon-arrow_left"></i>
       </a>
     </nav>
-    <div class="shop-content">
-      <img class="content-image">
+    <div class="shop-content" @click="showShop">
+      <img class="content-image" :src="shopMsg.avatar">
       <div class="header-content">
         <h2 class="content-title">
           <span class="content-tag">
             <span class="mini-tag">品牌</span>
           </span>
-          <span class="content-name"></span>
+          <span class="content-name" v-text="shopMsg.name"></span>
           <i class="content-icon"></i>
         </h2>
         <div class="shop-message">
-          <span class="shop-message-detail"></span>
-          <span class="shop-message-detail">月售x单</span>
+          <span class="shop-message-detail" v-text="shopMsg.score"></span>
           <span class="shop-message-detail">
-            <span>约x分钟</span>
+            月售
+            <span v-text="shopMsg.sellCount"></span>单
           </span>
-          <span class="shop-message-detail">距离</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="shop-header-discounts">
-      <div class="discounts-left">
-        <div class="activity">
-          <span class="content-tag">
-            <span class="mini-tag"></span>
-          </span>
-          <span class="activity-content ellipsis"></span>
-        </div>
-      </div>
-      <div class="discounts-right"></div>
-    </div>
-
-    <!-- <transition name="fade">
-      <div class="shop-brief-modal">
-        <div class="brief-modal-content">
-          <h2 class="content-title">
-            <span class="content-tag">
-              <span class="mini-tag">品牌</span>
+          <span class="shop-message-detail">
+            <span v-text="shopMsg.description"></span>
+            <span>
+              约
+              <span v-text="shopMsg.deliveryTime"></span>分钟
             </span>
-            <span class="content-name"></span>
-          </h2>
-          <ul class="brief-modal-msg">
-            <li>
-              <h3></h3>
-              <p>评分</p>
-            </li>
-            <li>
-              <h3>x单</h3>
-              <p>月售</p>
-            </li>
-            <li>
-              <h3></h3>
-              <p>约x分钟</p>
-            </li>
-            <li>
-              <h3>x元</h3>
-              <p>配送费用</p>
-            </li>
-            <li>
-              <h3></h3>
-              <p>距离</p>
-            </li>
-          </ul>
-          <h3 class="brief-modal-title">
-            <span>公告</span>
-          </h3>
-          <div class="brief-modal-notice"></div>
-          <div class="mask-footer">
-            <span class="iconfont icon-close"></span>
-          </div>
+          </span>
+          <span class="shop-message-detail">
+            距离
+            <span v-text="shopMsg.distance"></span>
+          </span>
         </div>
-        <div class="brief-modal-cover"></div>
       </div>
-    </transition>
-
-    <transition name="fade">
-      <div class="activity-sheet">
-        <div class="activity-sheet-content">
-          <h2 class="activity-sheet-title"></h2>
-          <ul class="list">
-            <li class="activity-item">
-              <span class="content-tag">
-                <span class="mini-tag"></span>
-              </span>
-              <span class="activity-content"></span>
-            </li>
-          </ul>
-          <div class="activity-sheet-close">
-            <span class="iconfont icon-close"></span>
-          </div>
+    </div>
+    <!-- 用v-if解决异步显示数据时多层表达式的解析问题 避免初始显示时因数据为空而报错-->
+    <div class="shop-header-discounts" v-if="shopMsg.supports" @click="showSupports">
+      <div class="discounts-left">
+        <!-- //*此处样式BUG已处理 -->
+        <div class="activity" :class="supportsClass[shopMsg.supports[0].type]">
+          <span class="content-tag">
+            <span class="mini-tag" v-text="shopMsg.supports[0].name"></span>
+          </span>
+          <span class="activity-content ellipsis" v-text="shopMsg.supports[0].content"></span>
         </div>
-        <div class="activity-sheet-cover"></div>
       </div>
-    </transition> -->
+      <div class="discounts-right">
+        <span v-text="shopMsg.supports.length"></span>个优惠
+      </div>
+    </div>
+    <div class="shop-brief-modal" v-if="shopShow">
+      <div class="brief-modal-content">
+        <h2 class="content-title">
+          <span class="content-tag">
+            <span class="mini-tag">品牌</span>
+          </span>
+          <span class="content-name" v-text="shopMsg.name"></span>
+        </h2>
+        <ul class="brief-modal-msg">
+          <li>
+            <h3 v-text="shopMsg.score"></h3>
+            <p>评分</p>
+          </li>
+          <li>
+            <h3 v-text="shopMsg.sellCount + '单'"></h3>
+            <p>月售</p>
+          </li>
+          <li>
+            <h3 v-text="shopMsg.description"></h3>
+            <p v-text="'约' + shopMsg.deliveryTime + '分钟'"></p>
+          </li>
+          <li>
+            <h3 v-text="shopMsg.deliveryPrice + '元'"></h3>
+            <p>配送费用</p>
+          </li>
+          <li>
+            <h3 v-text="shopMsg.distance"></h3>
+            <p>距离</p>
+          </li>
+        </ul>
+        <h3 class="brief-modal-title">
+          <span>公告</span>
+        </h3>
+        <div class="brief-modal-notice" v-text="shopMsg.bulletin"></div>
+        <div class="mask-footer" @click="showShop">
+          <span class="iconfont icon-close"></span>
+        </div>
+      </div>
+      <div class="brief-modal-cover"></div>
+    </div>
+    <div class="activity-sheet" v-if="supportsShow">
+      <div class="activity-sheet-content">
+        <h2 class="activity-sheet-title">优惠活动</h2>
+        <ul class="list">
+          <li class="activity-item" :class="supportsClass[support.type]" v-for="(support, index) in shopMsg.supports" :key="index">
+            <span class="content-tag">
+              <span class="mini-tag" v-text="support.name"></span>
+            </span>
+            <span class="activity-content" v-text="support.content"></span>
+          </li>
+        </ul>
+        <div class="activity-sheet-close" @click="showSupports">
+          <span class="iconfont icon-close"></span>
+        </div>
+      </div>
+      <div class="activity-sheet-cover"></div>
+    </div>
   </div>
 </template>
 
 <script>
-export default {};
+import { mapState } from "vuex";
+export default {
+  data() {
+    return {
+      supportsClass: ["activity-green", "activity-red", "activity-orange"],
+      shopShow: false,  //商家弹出框标志
+      supportsShow: false //活动弹出框标志
+    };
+  },
+  methods: {
+    //*显示隐藏商家弹出框
+    showShop () {
+      this.shopShow = !this.shopShow;
+    },
+    //*显示隐藏活动弹出框
+    showSupports () {
+      this.supportsShow = !this.supportsShow;
+    }
+  },
+  computed: {
+    ...mapState(["shopMsg"])
+  }
+};
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
@@ -278,6 +307,24 @@ export default {};
         display: flex;
         align-items: center;
 
+        &.activity-green {
+          .content-tag {
+            background-color: rgb(112, 188, 70);
+          }
+        }
+
+        &.activity-red {
+          .content-tag {
+            background-color: rgb(240, 115, 115);
+          }
+        }
+
+        &.activity-orange {
+          .content-tag {
+            background-color: rgb(241, 136, 79);
+          }
+        }
+
         .content-tag {
           border-radius: 1px;
           width: 25px;
@@ -287,7 +334,6 @@ export default {};
           font-style: normal;
           font-weight: 700;
           position: relative;
-          background-color: rgb(112, 188, 70);
 
           .mini-tag {
             position: absolute;
@@ -485,7 +531,7 @@ export default {};
       position: absolute;
       background-color: #f5f5f5;
       box-shadow: 0 -1px 5px 0 rgba(0, 0, 0, 0.4);
-      bottom: 0;
+      bottom: 38%;
       left: 0;
       right: 0;
       z-index: 100;

@@ -72,3 +72,14 @@ export const autoGetUserMsg = () => ajax(BASE_URL + "/userinfo");
 
 //*用户登出
 export const quitLogin = () => ajax(BASE_URL + "/logout");
+
+//*请求mock数据----------------------------------
+
+//*商家信息
+export const getShopMsg = () => ajax("/msg");
+
+//*商家评价
+export const getShopPingJia = () => ajax("/pingjia");
+
+//*商家商品
+export const getShopGoods = () => ajax("/goods");
