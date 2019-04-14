@@ -6,7 +6,7 @@ import {Button} from "mint-ui"
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-//*引入mock数据模块
+//*加载mock数据模块
 import "./mock/mockServer"
 
 //*注册全局组件标签Button
