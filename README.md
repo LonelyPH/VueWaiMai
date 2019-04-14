@@ -8,7 +8,7 @@
 更多功能正在完善中，在线预览暂时获取不了数据，只能在本地的
 服务器上获取数据
 
-在线预览地址(https://lonelyph.github.io/VueWaiMai/dist/index)
+[在线预览地址](https://lonelyph.github.io/VueWaiMai/dist/index)
 
 ```
 ## Build Setup
