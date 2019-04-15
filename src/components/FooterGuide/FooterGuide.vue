@@ -1,25 +1,45 @@
 <template>
   <div>
     <footer class="footer_guide border-1px">
-      <a href="javascript:;" class="guide_item" :class="{on: '/msite' === $route.path}" @click="goTo('/msite')">
+      <a
+        href="javascript:;"
+        class="guide_item"
+        :class="{on: '/msite' === $route.path}"
+        @click="goTo('/msite')"
+      >
         <span class="item_icon">
           <i class="iconfont icon-waimai"></i>
         </span>
         <span>外卖</span>
       </a>
-      <a href="javascript:;" class="guide_item" :class="{on: '/search' === $route.path}" @click="goTo('/search')">
+      <a
+        href="javascript:;"
+        class="guide_item"
+        :class="{on: '/search' === $route.path}"
+        @click="goTo('/search')"
+      >
         <span class="item_icon">
           <i class="iconfont icon-footer-search"></i>
         </span>
         <span>搜索</span>
       </a>
-      <a href="javascript:;" class="guide_item" :class="{on: '/order' === $route.path}" @click="goTo('/order')">
+      <a
+        href="javascript:;"
+        class="guide_item"
+        :class="{on: '/order' === $route.path}"
+        @click="goTo('/order')"
+      >
         <span class="item_icon">
           <i class="iconfont icon-dingdan"></i>
         </span>
         <span>订单</span>
       </a>
-      <a href="javascript:;" class="guide_item" :class="{on: '/profile' === $route.path}" @click="goTo('/profile')">
+      <a
+        href="javascript:;"
+        class="guide_item"
+        :class="{on: '/profile' === $route.path}"
+        @click="goTo('/profile')"
+      >
         <span class="item_icon">
           <i class="iconfont icon-wode"></i>
         </span>
@@ -32,15 +52,17 @@
 <script>
 export default {
   methods: {
-    goTo (path) {  // 切换路由组件
-      this.$router.replace(path)
+    goTo(path) {
+      // 切换路由组件
+      this.$router.replace(path);
     }
-  },
-}
+  }
+};
 </script>
 
 <style lang='stylus' rel='stylesheet/stylus'>
-@import "../../common/stylus/mixins.styl"
+@import '../../common/stylus/mixins.styl';
+
 .footer_guide { // footer
   top-border-1px(#e4e4e4);
   position: fixed;

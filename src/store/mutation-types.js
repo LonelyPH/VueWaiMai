@@ -18,3 +18,10 @@ export const RECEIVE_SHOP_GOODS = "RECEIVE_SHOP_GOODS"; //获取商家商品
 export const RECEIVE_SHOP_PINGJIA = "RECEIVE_SHOP_PINGJIA"; //获取商家评价
 
 export const RECEIVE_SHOP_MSG = "RECEIVE_SHOP_MSG"; //获取商家信息
+
+//*更新点餐数量
+
+export const JIA_COUNT = "JIA_COUNT"; //+
+
+export const JIAN_COUNT = "JIAN_COUNT"; //-
+

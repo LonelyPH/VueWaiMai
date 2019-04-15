@@ -10,7 +10,9 @@ import {
   LOGIN_OUT,
   RECEIVE_SHOP_GOODS,
   RECEIVE_SHOP_PINGJIA,
-  RECEIVE_SHOP_MSG
+  RECEIVE_SHOP_MSG,
+  JIA_COUNT,
+  JIAN_COUNT
 } from "./mutation-types";
 
 import {
@@ -85,6 +87,7 @@ export default {
     if (result.code === 0) {
       const shopGoods = result.data;
       commit(RECEIVE_SHOP_GOODS, { shopGoods });
+      //*异步数据获取到之后执行回调 替代watch作数据监视
       callback && callback();
     }
   },
@@ -102,6 +105,14 @@ export default {
     if (result.code === 0) {
       const shopMsg = result.data;
       commit(RECEIVE_SHOP_MSG, { shopMsg });
+    }
+  },
+  //*同步更新点餐数量
+  updataCount({ commit }, { isAdd, food }) {
+    if (isAdd) {
+      commit(JIA_COUNT, { food });
+    } else {
+      commit(JIAN_COUNT, { food });
     }
   }
 };

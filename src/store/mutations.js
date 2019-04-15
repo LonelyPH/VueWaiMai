@@ -1,6 +1,9 @@
 /*
  * 供actions调用的方法对象
  */
+
+import Vue from 'vue';
+
 import {
   RECEIVE_FOOD_LIST,
   RECEIVE_SHOP_LIST,
@@ -9,7 +12,9 @@ import {
   LOGIN_OUT,
   RECEIVE_SHOP_GOODS,
   RECEIVE_SHOP_PINGJIA,
-  RECEIVE_SHOP_MSG
+  RECEIVE_SHOP_MSG,
+  JIA_COUNT,
+  JIAN_COUNT
 } from "./mutation-types";
 
 export default {
@@ -48,5 +53,21 @@ export default {
   //商家信息
   [RECEIVE_SHOP_MSG](state, { shopMsg }) {
     state.shopMsg = shopMsg;
+  },
+  [JIA_COUNT](state, { food }) {
+    if (!food.count) {
+      /* 
+      *food.count = 1; 新增属性没有数据绑定
+      *要用Vue.set(模板对象或数组, "要添加的属性名", 属性值)来添加新的属性
+      */
+      Vue.set(food, "count", 1);
+    } else {
+      food.count++;
+    }
+  },
+  [JIAN_COUNT](state, { food }) {
+    if (food.count) {
+      food.count--;
+    }
   }
 };
