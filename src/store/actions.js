@@ -80,11 +80,12 @@ export default {
     }
   },
   //*异步获取商家商品
-  async getGoods({ commit }) {
+  async getGoods({ commit }, callback) {
     const result = await getShopGoods();
     if (result.code === 0) {
       const shopGoods = result.data;
       commit(RECEIVE_SHOP_GOODS, { shopGoods });
+      callback && callback();
     }
   },
   //*异步获取商家评价
