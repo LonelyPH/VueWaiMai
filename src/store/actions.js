@@ -12,7 +12,8 @@ import {
   RECEIVE_SHOP_PINGJIA,
   RECEIVE_SHOP_MSG,
   JIA_COUNT,
-  JIAN_COUNT
+  JIAN_COUNT,
+  CLEAR_CART
 } from "./mutation-types";
 
 import {
@@ -114,5 +115,9 @@ export default {
     } else {
       commit(JIAN_COUNT, { food });
     }
+  },
+  //*清空购物车
+  clearCart({ commit }) {
+    commit(CLEAR_CART);
   }
 };

@@ -2,7 +2,7 @@
  * 供actions调用的方法对象
  */
 
-import Vue from 'vue';
+import Vue from "vue";
 
 import {
   RECEIVE_FOOD_LIST,
@@ -14,7 +14,8 @@ import {
   RECEIVE_SHOP_PINGJIA,
   RECEIVE_SHOP_MSG,
   JIA_COUNT,
-  JIAN_COUNT
+  JIAN_COUNT,
+  CLEAR_CART
 } from "./mutation-types";
 
 export default {
@@ -56,11 +57,13 @@ export default {
   },
   [JIA_COUNT](state, { food }) {
     if (!food.count) {
-      /* 
-      *food.count = 1; 新增属性没有数据绑定
-      *要用Vue.set(模板对象或数组, "要添加的属性名", 属性值)来添加新的属性
-      */
+      /*
+       *food.count = 1; 新增属性没有数据绑定
+       *要用Vue.set(模板对象或数组, "要添加的属性名", 属性值)来添加新的属性
+       */
       Vue.set(food, "count", 1);
+      //*当某个food对象上添加了count属性就将该food对象添加到foodsChoosed数组中
+      state.foodsChoosed.push(food);
     } else {
       food.count++;
     }
@@ -68,6 +71,17 @@ export default {
   [JIAN_COUNT](state, { food }) {
     if (food.count) {
       food.count--;
+      //*当购物车的foodsChoosed数组中某个food对象的count为0时将该food对象从数组中删除
+      if (food.count === 0) {
+        state.foodsChoosed.splice(state.foodsChoosed.indexOf(food), 1);
+      }
     }
+  },
+  //*清空购物车
+  [CLEAR_CART](state) {
+    //删除food中的count属性
+    state.foodsChoosed.forEach(food => food.count = 0);
+    //重置数组
+    state.foodsChoosed = [];
   }
 };

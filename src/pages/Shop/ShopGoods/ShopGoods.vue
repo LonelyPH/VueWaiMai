@@ -1,57 +1,63 @@
 <template>
-  <div class="goods">
-    <div class="menu-wrapper" ref="menuWrapper">
-      <ul>
-        <li
-          class="menu-item"
-          v-for="(goods, index) in shopGoods"
-          :key="index"
-          @click="currentMenuItem(index)"
-          :class="{current: currentIndex === index}"
-        >
-          <span class="text bottom-border-1px">
-            <img class="icon" v-if="goods.icon" :src="goods.icon">
-            <span v-text="goods.name"></span>
-          </span>
-        </li>
-      </ul>
-    </div>
-    <div class="foods-wrapper" ref="foodsWrapper">
-      <ul ref="toLis">
-        <li class="food-list-hook" v-for="(goods, index) in shopGoods" :key="index">
-          <h1 class="title" v-text="goods.name"></h1>
-          <ul>
-            <li
-              class="food-item bottom-border-1px"
-              v-for="(food, index) in goods.foods"
-              :key="index"
-            >
-              <div class="icon">
-                <img width="57" height="57" :src="food.icon">
-              </div>
-              <div class="content">
-                <h2 class="name" v-text="food.name"></h2>
-                <p class="desc" v-text="food.description"></p>
-                <div class="extra">
-                  <span class="count" v-text="'月售' + food.sellCount + '份'"></span>
-                  <span v-text="'好评率' + food.rating + '%'"></span>
+  <div>
+    <div class="goods">
+      <div class="menu-wrapper">
+        <ul>
+          <li
+            class="menu-item"
+            v-for="(goods, index) in shopGoods"
+            :key="index"
+            @click="currentMenuItem(index)"
+            :class="{current: currentIndex === index}"
+          >
+            <span class="text bottom-border-1px">
+              <img class="icon" v-if="goods.icon" :src="goods.icon">
+              <span v-text="goods.name"></span>
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="foods-wrapper">
+        <ul ref="toLis">
+          <li class="food-list-hook" v-for="(goods, index) in shopGoods" :key="index">
+            <h1 class="title" v-text="goods.name"></h1>
+            <ul>
+              <li
+                class="food-item bottom-border-1px"
+                v-for="(food, index) in goods.foods"
+                :key="index"
+                @click="showFood(food)"
+              >
+                <div class="icon">
+                  <img width="57" height="57" :src="food.icon">
                 </div>
-                <div class="price">
-                  <!-- 现价 -->
-                  <span class="now" v-text="'￥' + food.price"></span>
-                  <!-- 原价 -->
-                  <span class="old" v-if="food.oldPrice" v-text="'￥' + food.oldPrice"></span>
-                </div>
+                <div class="content">
+                  <h2 class="name" v-text="food.name"></h2>
+                  <p class="desc" v-text="food.description"></p>
+                  <div class="extra">
+                    <span class="count" v-text="'月售' + food.sellCount + '份'"></span>
+                    <span v-text="'好评率' + food.rating + '%'"></span>
+                  </div>
+                  <div class="price">
+                    <!-- 现价 -->
+                    <span class="now" v-text="'￥' + food.price"></span>
+                    <!-- 原价 -->
+                    <span class="old" v-if="food.oldPrice" v-text="'￥' + food.oldPrice"></span>
+                  </div>
 
-                <div class="cartcontrol-wrapper">
-                  <CartControl :food="food"/>
+                  <div class="cartcontrol-wrapper">
+                    <CartControl :food="food"/>
+                  </div>
                 </div>
-              </div>
-            </li>
-          </ul>
-        </li>
-      </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- 底部购物车组件 -->
+      <ShopCart/>
     </div>
+    <Food :food="food" ref="food"/>
   </div>
 </template>
 
@@ -60,15 +66,20 @@ import { mapState } from "vuex";
 import BScroll from "better-scroll";
 
 import CartControl from "../../../components/CartControl/CartControl";
+import Food from "../../../components/Food/Food";
+import ShopCart from "../../../components/ShopCart/ShopCart";
 export default {
   data() {
     return {
       scrollY: 0,
-      tops: []
+      tops: [],
+      food: {}
     };
   },
   components: {
-    CartControl
+    CartControl,
+    Food,
+    ShopCart
   },
   mounted() {
     //*使用回调函数代替watch的数据监视
@@ -141,6 +152,12 @@ export default {
       //*使用scrollTo方法
       this.rigthScroll.scrollTo(0, -y, 300);
     },
+    showFood(food) {
+      //将被点击元素的food对象保存，用来传递给Food组件
+      this.food = food;
+      //点击显示Food组件,调用子组件对象的方法
+      this.$refs.food.showFood();
+    }
   }
 };
 </script>

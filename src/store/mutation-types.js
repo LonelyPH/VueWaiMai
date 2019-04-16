@@ -25,3 +25,5 @@ export const JIA_COUNT = "JIA_COUNT"; //+
 
 export const JIAN_COUNT = "JIAN_COUNT"; //-
 
+export const CLEAR_CART = "CLEAR_CART"; //清空购物车
+
