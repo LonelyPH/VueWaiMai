@@ -7,7 +7,9 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 //*加载mock数据模块
-import "./mock/mockServer"
+import "./mock/mockServer";
+//*加载过滤器
+import "./filters/index"
 
 //*注册全局组件标签Button
 Vue.component(Button.name, Button);

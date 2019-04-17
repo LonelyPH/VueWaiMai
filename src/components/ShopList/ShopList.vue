@@ -22,7 +22,7 @@
             <section class="shop_rating_order">
               <section class="shop_rating_order_left">
                 <!-- 评分组件 -->
-                <Pingja :score="shop.rating" :size="24"/>
+                <Pingjia :score="shop.rating" :size="24"/>
                 <div class="rating_section" v-text="shop.rating"></div>
                 <div class="order_section">
                   月售
@@ -57,7 +57,7 @@
 
 <script>
 //*引入子组件
-import Pingja from '../Pingja/Pingja'
+import Pingjia from '../Pingjia/Pingjia'
 import { mapState } from "vuex";
 export default {
   data() {
@@ -72,7 +72,7 @@ export default {
     ...mapState(["shopList"])
   },
   components: {
-    Pingja
+    Pingjia
   }
 };
 </script>

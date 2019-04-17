@@ -93,11 +93,13 @@ export default {
     }
   },
   //*异步获取商家评价
-  async getPingJia({ commit }) {
+  async getPingJia({ commit }, callback) {
     const result = await getShopPingJia();
     if (result.code === 0) {
       const shopPingJia = result.data;
       commit(RECEIVE_SHOP_PINGJIA, { shopPingJia });
+      //*异步数据获取到之后执行回调 替代watch作数据监视
+      callback && callback();
     }
   },
   //*异步获取商家信息

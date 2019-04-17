@@ -14,5 +14,11 @@ export default {
     return state.foodsChoosed.reduce((total, food) => {
       return (total = total + food.count * food.price);
     }, 0);
+  },
+  //评价满意的个数
+  positiveSize(state) {
+    return state.shopPingJia.reduce((total, pingjia) => {
+      return (total = total + (pingjia.rateType === 0 ? 1 : 0));
+    }, 0);
   }
 };
