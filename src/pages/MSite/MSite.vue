@@ -112,7 +112,7 @@ export default {
       this.$nextTick(() => {
         //*解决轮播BUG 在异步更新界面引起的轮播空白。可以使用定时，但$nextTick更准确
         //* 初始化Swiper
-        var mySwiper = new Swiper(".swiper-container", {
+        let mySwiper = new Swiper(".swiper-container", {
           direction: "horizontal", // 垂直切换选项
           loop: true, // 循环模式选项
           //自动切换
