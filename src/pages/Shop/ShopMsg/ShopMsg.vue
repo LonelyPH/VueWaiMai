@@ -80,15 +80,16 @@ export default {
   },
   mounted() {
     //组件创建前已经获取到shopMsg
-      //*初始化滚动
-      this.scroll = new BScroll(".shop-info", {
-        click: true
-      });
-      console.log(this.scroll);
-      new BScroll(".pic-wrapper", {
-        click: true,
-        scrollX: true
-      });
+    //*初始化滚动
+    this.scroll = new BScroll(".shop-info", {
+      click: true
+    });
+
+    console.log(this.scroll);
+    this.scrollX = new BScroll(".pic-wrapper", {
+      click: true,
+      scrollX: true
+    });
   }
 };
 </script>

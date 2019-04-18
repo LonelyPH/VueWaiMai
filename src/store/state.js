@@ -16,5 +16,7 @@ export default {
   shopMsg: {}, //商家信息
 
   //*添加到购物车的食物数组
-  foodsChoosed: []
+  foodsChoosed: [],
+  //*搜索到的商家列表数组
+  searchedShops: []
 };

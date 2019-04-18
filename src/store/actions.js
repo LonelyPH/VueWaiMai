@@ -13,7 +13,8 @@ import {
   RECEIVE_SHOP_MSG,
   JIA_COUNT,
   JIAN_COUNT,
-  CLEAR_CART
+  CLEAR_CART,
+  SEARCH_SHOP_LIST
 } from "./mutation-types";
 
 import {
@@ -24,7 +25,8 @@ import {
   quitLogin,
   getShopMsg,
   getShopPingJia,
-  getShopGoods
+  getShopGoods,
+  searchShopList
 } from "../api/index";
 export default {
   //*获取食品列表
@@ -121,5 +123,15 @@ export default {
   //*清空购物车
   clearCart({ commit }) {
     commit(CLEAR_CART);
+  },
+  //*根据经纬度及关键字异步搜索商家列表
+  async search({ commit }, keyword) {
+    const geohash = "40.10038,116.36867";
+    const result = await searchShopList({ geohash, keyword });
+    if (result.code === 0) {
+      const searchedShops = result.data;
+      commit(SEARCH_SHOP_LIST, { searchedShops });
+    } else {
+    }
   }
 };

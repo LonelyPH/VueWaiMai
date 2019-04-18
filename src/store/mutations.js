@@ -15,7 +15,8 @@ import {
   RECEIVE_SHOP_MSG,
   JIA_COUNT,
   JIAN_COUNT,
-  CLEAR_CART
+  CLEAR_CART,
+  SEARCH_SHOP_LIST
 } from "./mutation-types";
 
 export default {
@@ -80,8 +81,12 @@ export default {
   //*清空购物车
   [CLEAR_CART](state) {
     //删除food中的count属性
-    state.foodsChoosed.forEach(food => food.count = 0);
+    state.foodsChoosed.forEach(food => (food.count = 0));
     //重置数组
     state.foodsChoosed = [];
+  },
+  //*根据经纬度和关键字搜索商家列表
+  [SEARCH_SHOP_LIST](state, { searchedShops }) {
+    state.searchedShops = searchedShops;
   }
 };

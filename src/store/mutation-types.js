@@ -1,6 +1,6 @@
-/* 
-*映射管理文件
-*/
+/*
+ *映射管理文件
+ */
 
 export const RECEIVE_FOOD_LIST = "RECEIVE_FOOD_LIST"; //获取食品列表
 
@@ -27,3 +27,5 @@ export const JIAN_COUNT = "JIAN_COUNT"; //-
 
 export const CLEAR_CART = "CLEAR_CART"; //清空购物车
 
+//*搜索商家列表
+export const SEARCH_SHOP_LIST = "SEARCH_SHOP_LIST";
