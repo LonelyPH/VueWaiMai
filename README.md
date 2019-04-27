@@ -1,6 +1,6 @@
 # vue_waimai
 
-> 基于Vue全家桶的外卖网页项目练习
+基于Vue全家桶的外卖网页项目练习
 
 ##详情
 ``` bash
@@ -9,6 +9,8 @@
 服务器上获取数据
 
 [在线预览地址](https://lonelyph.github.io/VueWaiMai/dist/index)
+
+<img src="./images/waimai.gif" alt="外卖项目预览"/>
 
 ```
 ## Build Setup
